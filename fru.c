@@ -280,12 +280,11 @@ unsigned char * six2ascii(unsigned char *buf, size_t size)
 			*dest = ((buf[i+1] & 0xF0) >> 4 | (buf[i+2] & 0x03) << 4) + 0x20;
 			/* printf("3: %i: 0x%x (%c)\n", i, *dest, *dest); */
 			dest++;
-		}
-		if ((i + 3) < size) {
 			*dest = ((buf[i+2] & 0xFC) >> 2) + 0x20;
 			/* printf("4: %i: 0x%x (%c)\n", i, *dest, *dest); */
 			dest++;
 		}
+
 	}
 	/* make sure strings are null terminated */
 	*dest = 0;
