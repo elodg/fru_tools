@@ -171,8 +171,9 @@ static void dump_fru_field(const char * description, size_t offset, unsigned cha
 				printf("%s\n", &field[offset + 1]);
 			} else if (TYPE_CODE(field) == FRU_STRING_BINARY) {
                 for (i = 1 ; i <= FIELD_LEN(field); ++i)
-					printf(" %02x", field[i]);
-            } else
+					printf("%02x ", field[i]);
+                printf("\n");
+            } else {
 				printf("Non-ASCII or binary\n");
 			}
 		} else
