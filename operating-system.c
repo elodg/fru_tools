@@ -162,14 +162,18 @@ void write_FRU(struct FRU_DATA *fru, char * file_name, bool packed)
 
 static void dump_fru_field(const char * description, size_t offset, unsigned char * field)
 {
+    unsigned int i;
 	/* does field exist, and have length? */
 	if (field) {
 		printf("%s\t: ", description);
 		if (FIELD_LEN(field)) {
 			if (TYPE_CODE(field) == FRU_STRING_ASCII || offset) {
 				printf("%s\n", &field[offset + 1]);
-			} else {
-				printf("Non-ASCII\n");
+			} else if (TYPE_CODE(field) == FRU_STRING_BINARY) {
+                for (i = 1 ; i <= FIELD_LEN(field); ++i)
+					printf(" %02x", field[i]);
+            } else
+				printf("Non-ASCII or binary\n");
 			}
 		} else
 			printf("Empty Field\n");
